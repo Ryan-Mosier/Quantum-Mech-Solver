@@ -14,7 +14,6 @@ enum class TokenType {
     Plus, Minus, Star, Slash,
     LParen, RParen,
     Comma // Seperator
-    //TODO: LaTex compatibility
 };
 
 const std::map<char, TokenType> token_map = {

@@ -2,21 +2,20 @@
 // Created by ryanm on 12/21/2025.
 //
 
-#ifndef QUANTUM_MECH_SOLVER_IDENTIFIER_H
-#define QUANTUM_MECH_SOLVER_IDENTIFIER_H
+#ifndef EXPRESSION_LIBRARY_IDENTIFIER_HPP
+#define EXPRESSION_LIBRARY_IDENTIFIER_HPP
 #include "ExpressionType.hpp"
 
 
 class Identifier : public Expression {
-public:
-    Identifier(const std::string& ident);
-    std::unique_ptr<Expression>               evaluate() override;
-    [[nodiscard]] std::string                 getIdentifier() const;
-    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
+    std::string name;
 
-private:
-    std::string ident;
+public:
+    Identifier(const std::string& name);
+    [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
+    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
+    [[nodiscard]] const std::string&                        getName() const;
 };
 
 
-#endif //QUANTUM_MECH_SOLVER_IDENTIFIER_H
+#endif //EXPRESSION_LIBRARY_IDENTIFIER_HPP

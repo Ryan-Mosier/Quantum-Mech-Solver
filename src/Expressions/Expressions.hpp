@@ -7,13 +7,15 @@
 
 /// Umbrella for all files in include
 
-#include "Assignment.hpp"
+#include "BinaryExpression.hpp"
+#include "BinaryOpStrategy.hpp"
 #include "Environment.hpp"
 #include "ExpressionFactory.hpp"
 #include "ExpressionType.hpp"
-#include "Identifier.hpp"
 #include "Number.hpp"
-#include "Plus.hpp"
+#include "Identifier.hpp"
 #include "Token.hpp"
+#include "UnaryExpression.hpp"
+#include "UnaryOpStrategy.hpp"
 
 #endif //QUANTUM_MECH_SOLVER_EXPRESSIONS_H

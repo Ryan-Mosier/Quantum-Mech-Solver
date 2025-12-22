@@ -15,6 +15,7 @@
 
 /// Converts a string into a vector of tokens, which can then be parsed into expressions
 /// This does an entire file (src string) at a time. In the future it may make more sense to do this line by line instead
+/// TODO: LaTex compatibility?
 class Tokenizer
 {
 private:
