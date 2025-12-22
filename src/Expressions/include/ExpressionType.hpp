@@ -9,9 +9,8 @@
 #include <string>
 
 enum class ExpressionType {
-    Identifier, Number, Assignment, //Basic
+    Identifier, Number, Assignment, // Basic
     Plus, Minus, Multiply, Divide,  // Arithmetic
-    LeftBracket, RightBracket,      // Brackets
     Print,                          // Output to console
     FunctionCall,                   // Call a built-in function
 };

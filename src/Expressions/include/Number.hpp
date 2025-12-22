@@ -11,6 +11,7 @@ class Number : public Expression {
 
 public:
     Number(double value);
+    Number(const std::string& value);
     [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
     [[nodiscard]] std::unique_ptr<Expression> clone() const override;
     [[nodiscard]] double                                    getValue() const;
