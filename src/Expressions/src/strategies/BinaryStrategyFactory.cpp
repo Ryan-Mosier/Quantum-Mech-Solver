@@ -8,10 +8,10 @@
 
 #include "BinaryOperators.hpp"
 
-auto plus     = Plus();
-auto minus    = Minus();
-auto multiply = Multiply();
-auto divide   = Divide();
+auto plus     = new Plus();
+auto minus    = new Minus();
+auto multiply = new Multiply();
+auto divide   = new Divide();
 
 inline ExpressionType getExpressionType(TokenType type) {
     switch (type) {
@@ -23,21 +23,21 @@ inline ExpressionType getExpressionType(TokenType type) {
     }
 }
 
-std::shared_ptr<BinaryOpStrategy> BinaryStrategyFactory::createStrategy(TokenType type) {
+const BinaryOpStrategy* BinaryStrategyFactory::createStrategy(TokenType type) {
     return createStrategy(getExpressionType(type));
 }
 
-std::shared_ptr<BinaryOpStrategy> BinaryStrategyFactory::createStrategy(ExpressionType type) {
+const BinaryOpStrategy* BinaryStrategyFactory::createStrategy(ExpressionType type) {
     switch (type) {
         default:
             throw std::invalid_argument("invalid expression type");
         case ExpressionType::Plus:
-            return std::shared_ptr<BinaryOpStrategy>(&plus);
+            return plus;
         case ExpressionType::Minus:
-            return std::shared_ptr<BinaryOpStrategy>(&minus);
+            return minus;
         case ExpressionType::Multiply:
-            return std::shared_ptr<BinaryOpStrategy>(&multiply);
+            return multiply;
         case ExpressionType::Divide:
-            return std::shared_ptr<BinaryOpStrategy>(&divide);
+            return divide;
     }
 }

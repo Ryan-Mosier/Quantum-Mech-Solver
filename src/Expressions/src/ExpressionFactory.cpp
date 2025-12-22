@@ -14,7 +14,7 @@ std::unique_ptr<Expression> ExpressionFactory::createExpression(const Token& tok
 std::unique_ptr<Expression> ExpressionFactory::createExpression(const Token&                       token,
                                                                 const std::unique_ptr<Expression>& left,
                                                                 const std::unique_ptr<Expression>& right) {
-    std::shared_ptr<BinaryOpStrategy> strategy = BinaryStrategyFactory::createStrategy(token.type);
+    const BinaryOpStrategy* strategy = BinaryStrategyFactory::createStrategy(token.type);
     return std::make_unique<BinaryExpression>(left->clone(), right->clone(), strategy);
 }
 

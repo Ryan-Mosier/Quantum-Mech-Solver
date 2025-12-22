@@ -12,12 +12,12 @@
 class BinaryExpression : public Expression {
     std::unique_ptr<Expression>       left;
     std::unique_ptr<Expression>       right;
-    std::shared_ptr<BinaryOpStrategy> strategy;
+    const BinaryOpStrategy* strategy;
 
 public:
     ~BinaryExpression() override = default;
     BinaryExpression(const std::unique_ptr<Expression>&       left, const std::unique_ptr<Expression>& right,
-                     const std::shared_ptr<BinaryOpStrategy>& strategy);
+                     const BinaryOpStrategy* strategy);
     [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
     [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 };

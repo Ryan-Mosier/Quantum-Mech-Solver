@@ -5,7 +5,7 @@
 #include "Expressions.hpp"
 
 BinaryExpression::BinaryExpression(const std::unique_ptr<Expression>& left, const std::unique_ptr<Expression>& right,
-                                   const std::shared_ptr<BinaryOpStrategy>& strategy) : left(left->clone()),
+                                   const BinaryOpStrategy* strategy) : left(left->clone()),
     right(right->clone()), strategy(strategy) {}
 
 std::unique_ptr<Expression> BinaryExpression::evaluate() { return strategy->eval(left->clone(), right->clone()); }

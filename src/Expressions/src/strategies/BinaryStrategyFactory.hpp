@@ -13,8 +13,8 @@
 
 class BinaryStrategyFactory {
 public:
-    static std::shared_ptr<BinaryOpStrategy> createStrategy(TokenType type);
-    static std::shared_ptr<BinaryOpStrategy> createStrategy(ExpressionType type);
+    static const BinaryOpStrategy* createStrategy(TokenType type);
+    static const BinaryOpStrategy* createStrategy(ExpressionType type);
 };
 
 
