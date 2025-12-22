@@ -31,8 +31,6 @@ struct Token {
     TokenType                 type;
     std::string               left;  // the string to the left of this token until the next token on the left
     std::string               right; // same, but right
-    std::pair<Token*, Token*> adj;   // this will make the parsing less unhinged
-    // adj.first is the token to the left, adj.second is the token to the right. This will not cross lines
     Token(TokenType type, std::string left, std::string right) : type(type), left(std::move(left)),
                                                                  right(std::move(right)) {}
 };
