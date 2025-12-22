@@ -11,5 +11,6 @@ include_directories(include)
 include_directories(.)
 
 aux_source_directory(src SOURCE_FILES)
+aux_source_directory(src/strategies SOURCE_FILES)
 add_library(Expressions ${SOURCE_FILES})
 
