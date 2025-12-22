@@ -12,4 +12,5 @@ std::unique_ptr<Expression> UnaryExpression::evaluate() { return strategy->eval(
 
 std::unique_ptr<Expression> UnaryExpression::clone() const {
     return std::make_unique<UnaryExpression>(expression, strategy);
+    // if the overhead here is large, consider using shared pointers
 }

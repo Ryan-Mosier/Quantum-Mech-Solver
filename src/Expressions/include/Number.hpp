@@ -14,7 +14,7 @@ public:
     Number(const std::string& value);
     [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
     [[nodiscard]] std::unique_ptr<Expression> clone() const override;
-    [[nodiscard]] double                                    getValue() const;
+    [[nodiscard]] double                      getValue() const;
 };
 
 

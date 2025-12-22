@@ -8,7 +8,7 @@
 
 class UnaryOpStrategy {
 public:
-    virtual                                    ~UnaryOpStrategy() = default;
+    virtual                             ~UnaryOpStrategy() = default;
     virtual std::unique_ptr<Expression> eval(const std::unique_ptr<Expression>& expression) = 0;
 };
 

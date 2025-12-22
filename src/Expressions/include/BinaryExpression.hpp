@@ -10,14 +10,15 @@
 
 
 class BinaryExpression : public Expression {
-    std::unique_ptr<Expression>       left;
-    std::unique_ptr<Expression>       right;
-    const BinaryOpStrategy* strategy;
+    // may want to consider shared pointers to save on clone overhead if it turns out to be large
+    std::unique_ptr<Expression> left;
+    std::unique_ptr<Expression> right;
+    const BinaryOpStrategy*     strategy;
 
 public:
     ~BinaryExpression() override = default;
-    BinaryExpression(const std::unique_ptr<Expression>&       left, const std::unique_ptr<Expression>& right,
-                     const BinaryOpStrategy* strategy);
+    BinaryExpression(const std::unique_ptr<Expression>& left, const std::unique_ptr<Expression>& right,
+                     const BinaryOpStrategy*            strategy);
     [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
     [[nodiscard]] std::unique_ptr<Expression> clone() const override;
 };

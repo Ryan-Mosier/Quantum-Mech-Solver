@@ -14,7 +14,7 @@ public:
     Identifier(const std::string& name);
     [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
     [[nodiscard]] std::unique_ptr<Expression> clone() const override;
-    [[nodiscard]] const std::string&                        getName() const;
+    [[nodiscard]] const std::string&          getName() const;
 };
 
 
