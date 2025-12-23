@@ -18,4 +18,14 @@ public:
 };
 
 
+class Identifier : public Expression {
+    std::string name;
+
+public:
+    Identifier(const std::string& name);
+    [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
+    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
+    [[nodiscard]] const std::string&          getName() const;
+};
+
 #endif //EXPRESSION_LIBRARY_NUMBER_HPP

@@ -5,7 +5,7 @@
 
 #include <stdexcept>
 
-#include "Number.hpp"
+#include "Atoms.hpp"
 
 std::pair<double, double> extractNumbers(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right) {
     auto l  = left->evaluate();

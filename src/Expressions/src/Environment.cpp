@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <stdexcept>
+
 Environment* Environment::instance = nullptr;
 
 void Environment::set(const std::string& name, const std::unique_ptr<Expression>& expr) {

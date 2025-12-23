@@ -8,6 +8,7 @@
 
 #include "BinaryOperators.hpp"
 
+// These provide a static location for the strategies, each instance will actually just reference this.
 auto plus     = new Plus();
 auto minus    = new Minus();
 auto multiply = new Multiply();

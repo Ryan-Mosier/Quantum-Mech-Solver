@@ -4,7 +4,7 @@
 
 #ifndef EXPRESSION_LIBRARY_BINARYOPERATORS_HPP
 #define EXPRESSION_LIBRARY_BINARYOPERATORS_HPP
-#include "BinaryOpStrategy.hpp"
+#include "OpStrategy.hpp"
 
 class Plus : public BinaryOpStrategy {
     std::unique_ptr<Expression>

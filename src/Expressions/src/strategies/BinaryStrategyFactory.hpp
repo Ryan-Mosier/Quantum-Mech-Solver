@@ -6,7 +6,7 @@
 #define EXPRESSION_LIBRARY_BINARYSTRATEGYFACTORY_HPP
 #include <memory>
 
-#include "BinaryOpStrategy.hpp"
+#include "OpStrategy.hpp"
 #include "ExpressionType.hpp"
 #include "Token.hpp"
 
