@@ -3,10 +3,11 @@
 //
 
 #include "Expressions.hpp"
+#include "strategies/BinaryStrategyFactory.hpp"
 
 UnaryExpression::UnaryExpression(const std::unique_ptr<Expression> &expression,
                                  const std::shared_ptr<OpStrategy> &strategy) : expression(expression->clone()),
-    strategy(strategy) {
+                                                                                strategy(strategy) {
 }
 
 std::unique_ptr<Expression> UnaryExpression::evaluate() { return strategy->eval(expression); }
@@ -20,6 +21,7 @@ std::unique_ptr<Expression> UnaryExpression::clone() const {
 BinaryExpression::BinaryExpression(const std::unique_ptr<Expression> &left, const std::unique_ptr<Expression> &right,
                                    const BinaryOpStrategy *strategy) : left(left->clone()),
                                                                        right(right->clone()), strategy(strategy) {
+    type = BinaryStrategyFactory::getType(strategy);
 }
 
 std::unique_ptr<Expression> BinaryExpression::evaluate() { return strategy->eval(left->clone(), right->clone()); }

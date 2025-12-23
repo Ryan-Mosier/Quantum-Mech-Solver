@@ -20,7 +20,7 @@ TEST(UsageTests, TestBinaryExpressionEvaluation) {
     auto l = std::make_unique<Number>(5.0);
     auto r = std::make_unique<Number>(3.0);
     Token plus(TokenType::Plus, "5", "3");
-    auto expr = ExpressionFactory::createExpression(plus, l, r);
+    auto expr = ExpressionFactory::createExpression(plus, l->clone(), r->clone());
     
     auto result = expr->evaluate();
     ASSERT_EQ(result->getType(), ExpressionType::Number);

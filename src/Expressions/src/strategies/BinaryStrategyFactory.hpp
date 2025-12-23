@@ -15,6 +15,7 @@ class BinaryStrategyFactory {
 public:
     static const BinaryOpStrategy* createStrategy(TokenType type);
     static const BinaryOpStrategy* createStrategy(ExpressionType type);
+    static ExpressionType          getType(const BinaryOpStrategy* strategy);
 };
 
 

@@ -9,10 +9,10 @@
 #include "BinaryOperators.hpp"
 
 // These provide a static location for the strategies, each instance will actually just reference this.
-auto plus     = new Plus();
-auto minus    = new Minus();
-auto multiply = new Multiply();
-auto divide   = new Divide();
+static auto plus     = new Plus();
+static auto minus    = new Minus();
+static auto multiply = new Multiply();
+static auto divide   = new Divide();
 
 inline ExpressionType getExpressionType(TokenType type) {
     switch (type) {
@@ -41,4 +41,12 @@ const BinaryOpStrategy* BinaryStrategyFactory::createStrategy(ExpressionType typ
         case ExpressionType::Divide:
             return divide;
     }
+}
+
+ExpressionType BinaryStrategyFactory::getType(const BinaryOpStrategy* strategy) {
+    if (strategy == plus) return ExpressionType::Plus;
+    if (strategy == minus) return ExpressionType::Minus;
+    if (strategy == multiply) return ExpressionType::Multiply;
+    if (strategy == divide) return ExpressionType::Divide;
+    throw std::invalid_argument("invalid strategy");
 }
