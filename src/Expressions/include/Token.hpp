@@ -23,8 +23,9 @@ struct Token {
     size_t end_index;
 
     Token(const TokenType& type, std::string value, const size_t& start_index) : type(type), value(std::move(value)),
-                                                                   start_index(start_index),
-                                                                   end_index(start_index + value.size()) {}
+        start_index(start_index),
+        end_index(start_index + value.size()) {}
+
     explicit Token(const TokenType& type) : Token(type, "", 0) {}
 };
 

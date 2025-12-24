@@ -23,7 +23,7 @@ private:
 
     [[nodiscard]] std::optional<Token> trySingleCharTokenize(const size_t& line_idx, size_t& char_idx) const;
     [[nodiscard]] std::optional<Token> tryMultiCharTokenize(const size_t& line_idx, size_t& char_idx) const;
-    std::vector<Token>   tokenizeLine(const size_t& line_idx) const; // parses a single line of tokens
+    std::vector<Token>                 tokenizeLine(const size_t& line_idx) const; // parses a single line of tokens
 
     void seperateLines(); // separates lines into the vector, 'lines' are separated with ';'
 

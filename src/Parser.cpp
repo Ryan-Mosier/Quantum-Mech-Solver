@@ -77,9 +77,7 @@ std::vector<Token> Tokenizer::tokenizeLine(const size_t& line_idx) const {
             continue;
         }
         token = tryMultiCharTokenize(line_idx, i); // i is mutated
-        if (token) {
-            line_tokens.push_back(token.value());
-        }
+        if (token) { line_tokens.push_back(token.value()); }
         else {
             throw std::invalid_argument(
                 "invalid token at: (" + std::to_string(line_idx) + "," + std::to_string(i) + ")"
