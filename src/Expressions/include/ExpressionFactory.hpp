@@ -10,13 +10,13 @@
 
 class ExpressionFactory {
 public:
-    static std::unique_ptr<Expression> createExpression(const Token& token);
-    static std::unique_ptr<Expression> createExpression(const Token& token, const std::unique_ptr<Expression>& left,
-                                                        const std::unique_ptr<Expression>& right);
-    static std::unique_ptr<Expression> createExpression(const Token&                       token,
-                                                        const std::unique_ptr<Expression>& expression);
+    static std::shared_ptr<Expression> createExpression(const Token& token);
+    static std::shared_ptr<Expression> createExpression(const Token& token, const std::shared_ptr<Expression>& left,
+                                                        const std::shared_ptr<Expression>& right);
+    static std::shared_ptr<Expression> createExpression(const Token&                       token,
+                                                        const std::shared_ptr<Expression>& expression);
     //used for ident/number expressions
-    static std::unique_ptr<Expression> createExpression(const std::string& type, const std::string& string);
+    static std::shared_ptr<Expression> createExpression(const std::string& type, const std::string& string);
 };
 
 

@@ -5,39 +5,42 @@
 #ifndef EXPRESSION_LIBRARY_UNARYEXPRESSION_HPP
 #define EXPRESSION_LIBRARY_UNARYEXPRESSION_HPP
 
+#include <variant>
+
 #include "OpStrategy.hpp"
 #include "ExpressionType.hpp"
 
+using leaf = std::variant<Value, std::shared_ptr<Expression>>;
 
 class UnaryExpression : public Expression {
-    std::unique_ptr<Expression> expression;
-    std::shared_ptr<OpStrategy> strategy;
+    std::shared_ptr<Expression> expression;
+    const OpStrategy*           strategy;
 
 public:
     ~UnaryExpression() override = default;
 
-    UnaryExpression(const std::unique_ptr<Expression> &expression, const std::shared_ptr<OpStrategy> &strategy);
+    UnaryExpression(const std::shared_ptr<Expression>& expression, const OpStrategy* strategy);
 
-    [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
+    [[nodiscard]] Value evaluate() const override;
 
-    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
+    [[nodiscard]] std::shared_ptr<Expression> clone() const override;
 };
 
 class BinaryExpression : public Expression {
     // may want to consider shared pointers to save on clone overhead if it turns out to be large
-    std::unique_ptr<Expression> left;
-    std::unique_ptr<Expression> right;
-    const BinaryOpStrategy *strategy;
+    std::shared_ptr<Expression> left;
+    std::shared_ptr<Expression> right;
+    const BinaryOpStrategy*     strategy;
 
 public:
     ~BinaryExpression() override = default;
 
-    BinaryExpression(const std::unique_ptr<Expression> &left, const std::unique_ptr<Expression> &right,
-                     const BinaryOpStrategy *strategy);
+    BinaryExpression(const std::shared_ptr<Expression>& left, const std::shared_ptr<Expression>& right,
+                     const BinaryOpStrategy*            strategy);
 
-    [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
+    [[nodiscard]] Value evaluate() const override;
 
-    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
+    [[nodiscard]] std::shared_ptr<Expression> clone() const override;
 };
 
 

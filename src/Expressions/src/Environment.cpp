@@ -8,20 +8,17 @@
 #include <memory>
 #include <stdexcept>
 
-Environment* Environment::instance = nullptr;
+Environment* Environment::instance = new Environment();
 
-void Environment::set(const std::string& name, const std::unique_ptr<Expression>& expr) {
-    environment[name] = expr->clone();
+void Environment::set(const std::string& name, const Value& value) { environment[name] = value; }
+void Environment::set(const std::string& name, const Expression* value) { environment[name] = value->evaluate(); }
+void Environment::set(const std::string& name, const std::shared_ptr<Expression>& value) {
+    environment[name] = value->evaluate();
 }
 
-const Expression* Environment::get(const std::string& name) const {
-    try { return environment.at(name).get(); }
-    catch (const std::out_of_range& e) { throw std::invalid_argument("Undefined variable: " + name); }
+const Value* Environment::get(const std::string& name) const {
+    const auto it = environment.find(name);
+    return (it == environment.end()) ? nullptr : &(it->second);
 }
 
 bool Environment::exists(const std::string& name) const { return environment.find(name) != environment.end(); }
-
-Environment& Environment::getInstance() {
-    if (!instance) { instance = new Environment(); }
-    return *instance;
-}

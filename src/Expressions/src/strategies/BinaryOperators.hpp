@@ -7,24 +7,24 @@
 #include "OpStrategy.hpp"
 
 class Plus : public BinaryOpStrategy {
-    std::unique_ptr<Expression>
-    eval(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right) const override;
+    [[nodiscard]] Value
+    eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const override;
 };
 
 
 class Minus : public BinaryOpStrategy {
-    std::unique_ptr<Expression>
-    eval(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right) const override;
+    [[nodiscard]] Value
+    eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const override;
 };
 
 class Multiply : public BinaryOpStrategy {
-    std::unique_ptr<Expression>
-    eval(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right) const override;
+    [[nodiscard]] Value
+    eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const override;
 };
 
 class Divide : public BinaryOpStrategy {
-    std::unique_ptr<Expression>
-    eval(std::unique_ptr<Expression> left, std::unique_ptr<Expression> right) const override;
+    [[nodiscard]] Value
+    eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const override;
 };
 
 

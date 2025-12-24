@@ -2,17 +2,18 @@
 // Created by ryanm on 12/21/2025.
 //
 
+#include <utility>
+
 #include "Expressions.hpp"
 
 /// Number
-Number::Number(double value) : value(value) { type = ExpressionType::Number; }
+Number::Number(const double& value) : value(value) { type = ExpressionType::Number; }
 Number::Number(const std::string& value) : value(std::stod(value)) { type = ExpressionType::Number; }
-std::unique_ptr<Expression> Number::evaluate() { return clone(); }
-std::unique_ptr<Expression> Number::clone() const { return std::make_unique<Number>(value); }
-double                      Number::getValue() const { return value; }
+Value                       Number::evaluate() const { return value; }
+std::shared_ptr<Expression> Number::clone() const { return std::make_shared<Number>(value); }
 
 /// Identifier
-Identifier::Identifier(const std::string& name) : name(name) { type = ExpressionType::Identifier; }
-std::unique_ptr<Expression> Identifier::evaluate() { return Environment::getInstance().get(name)->clone(); }
-std::unique_ptr<Expression> Identifier::clone() const { return std::make_unique<Identifier>(name); }
+Identifier::Identifier(std::string name) : name(std::move(name)) { type = ExpressionType::Identifier; }
+Value                       Identifier::evaluate() const { return *Environment::getInstance().get(name); }
+std::shared_ptr<Expression> Identifier::clone() const { return std::make_shared<Identifier>(name); }
 const std::string&          Identifier::getName() const { return name; }

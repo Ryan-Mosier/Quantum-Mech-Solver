@@ -8,6 +8,9 @@
 #include <memory>
 #include <string>
 
+/// Terminal Types of the AST, use std::variant<> for more in future
+using Value = double;
+
 enum class ExpressionType {
     Identifier, Number, Assignment, // Basic
     Plus, Minus, Multiply, Divide,  // Arithmetic
@@ -24,8 +27,8 @@ public:
 
     [[nodiscard]] ExpressionType getType() const { return type; };
 
-    [[nodiscard]] virtual std::unique_ptr<Expression> evaluate() = 0;
-    [[nodiscard]] virtual std::unique_ptr<Expression> clone() const = 0;
+    [[nodiscard]] virtual Value evaluate() const = 0;
+    [[nodiscard]] virtual std::shared_ptr<Expression> clone() const = 0;
 };
 
 

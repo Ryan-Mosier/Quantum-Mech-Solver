@@ -5,28 +5,25 @@
 #include "Expressions.hpp"
 #include "strategies/BinaryStrategyFactory.hpp"
 
-UnaryExpression::UnaryExpression(const std::unique_ptr<Expression> &expression,
-                                 const std::shared_ptr<OpStrategy> &strategy) : expression(expression->clone()),
-                                                                                strategy(strategy) {
+UnaryExpression::UnaryExpression(const std::shared_ptr<Expression>& expression,
+                                 const OpStrategy*                  strategy) : expression(expression),
+    strategy(strategy) {}
+
+Value UnaryExpression::evaluate() const { return strategy->eval(expression); }
+
+std::shared_ptr<Expression> UnaryExpression::clone() const {
+    return std::make_shared<UnaryExpression>(expression, strategy);
 }
 
-std::unique_ptr<Expression> UnaryExpression::evaluate() { return strategy->eval(expression); }
 
-std::unique_ptr<Expression> UnaryExpression::clone() const {
-    return std::make_unique<UnaryExpression>(expression, strategy);
-    // if the overhead here is large, consider using shared pointers
-}
-
-
-BinaryExpression::BinaryExpression(const std::unique_ptr<Expression> &left, const std::unique_ptr<Expression> &right,
-                                   const BinaryOpStrategy *strategy) : left(left->clone()),
-                                                                       right(right->clone()), strategy(strategy) {
+BinaryExpression::BinaryExpression(const std::shared_ptr<Expression>& left, const std::shared_ptr<Expression>& right,
+                                   const BinaryOpStrategy*            strategy) : left(left),
+    right(right), strategy(strategy) {
     type = BinaryStrategyFactory::getType(strategy);
 }
 
-std::unique_ptr<Expression> BinaryExpression::evaluate() { return strategy->eval(left->clone(), right->clone()); }
+Value BinaryExpression::evaluate() const { return strategy->eval(left, right); }
 
-std::unique_ptr<Expression> BinaryExpression::clone() const {
-    return std::make_unique<BinaryExpression>(left, right, strategy);
-    // if the overhead here is large, should swap to shared pointers
+std::shared_ptr<Expression> BinaryExpression::clone() const {
+    return std::make_shared<BinaryExpression>(left, right, strategy);
 }

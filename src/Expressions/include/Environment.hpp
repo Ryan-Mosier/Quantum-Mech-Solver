@@ -9,18 +9,20 @@
 #include <string>
 #include "ExpressionType.hpp"
 
-
 class Environment {
 private:
-    std::map<std::string, std::unique_ptr<Expression>> environment;
+    std::map<std::string, Value> environment;
     Environment() = default;
     static Environment* instance;
 
 public:
-    void                            set(const std::string& name, const std::unique_ptr<Expression>& expr);
-    [[nodiscard]] const Expression* get(const std::string& name) const;
-    [[nodiscard]] bool              exists(const std::string& name) const;
-    static Environment&             getInstance();
+    void                                    set(const std::string& name, const Value& value);
+    void                                    set(const std::string& name, const Expression* value);
+    void                                    set(const std::string& name, const std::shared_ptr<Expression>& value);
+    [[nodiscard]] const Value*              get(const std::string& name) const;
+    [[nodiscard]] bool                      exists(const std::string& name) const;
+    [[nodiscard]] static Environment& getInstance() { return *instance; }
 };
+
 
 #endif //EXPRESSION_LIBRARY_ENVIRONMENT_HPP

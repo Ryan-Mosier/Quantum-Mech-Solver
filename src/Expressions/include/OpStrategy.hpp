@@ -9,15 +9,15 @@
 
 class OpStrategy {
 public:
-    virtual                             ~OpStrategy() = default;
-    virtual std::unique_ptr<Expression> eval(const std::unique_ptr<Expression>& expression) = 0;
+    virtual                     ~OpStrategy() = default;
+    [[nodiscard]] virtual Value eval(const std::shared_ptr<Expression>& expression) const = 0;
 };
 
 class BinaryOpStrategy {
 public:
-    virtual                                           ~BinaryOpStrategy() = default;
-    [[nodiscard]] virtual std::unique_ptr<Expression> eval(std::unique_ptr<Expression> left,
-                                                           std::unique_ptr<Expression> right) const = 0;
+    virtual                     ~BinaryOpStrategy() = default;
+    [[nodiscard]] virtual Value eval(std::shared_ptr<Expression> left,
+                                     std::shared_ptr<Expression> right) const = 0;
 };
 
 #endif //EXPRESSION_LIBRARY_UNARYOPSTRATEGY_HPP

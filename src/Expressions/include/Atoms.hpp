@@ -10,21 +10,19 @@ class Number : public Expression {
     double value;
 
 public:
-    Number(double value);
+    Number(const double& value);
     Number(const std::string& value);
-    [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
-    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
-    [[nodiscard]] double                      getValue() const;
+    [[nodiscard]] Value                       evaluate() const override;
+    [[nodiscard]] std::shared_ptr<Expression> clone() const override;
 };
-
 
 class Identifier : public Expression {
     std::string name;
 
 public:
-    Identifier(const std::string& name);
-    [[nodiscard]] std::unique_ptr<Expression> evaluate() override;
-    [[nodiscard]] std::unique_ptr<Expression> clone() const override;
+    Identifier(std::string name);
+    [[nodiscard]] Value                       evaluate() const override;
+    [[nodiscard]] std::shared_ptr<Expression> clone() const override;
     [[nodiscard]] const std::string&          getName() const;
 };
 
