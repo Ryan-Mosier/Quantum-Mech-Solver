@@ -18,8 +18,8 @@ std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token&    
     return std::make_shared<BinaryExpression>(left, right, strategy);
 }
 
-std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token&                        token,
-                                                                const std::shared_ptr<Expression> & expression) {
+std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token&                       token,
+                                                                const std::shared_ptr<Expression>& expression) {
     throw std::logic_error("not implemented"); // Nothing in the language uses UnaryOperations yet!
 }
 
