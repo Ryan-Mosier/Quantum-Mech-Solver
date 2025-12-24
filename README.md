@@ -1,6 +1,15 @@
 # Quantum-Mech-Solver
 
-A robust mathematical expression solver and compiler written in modern C++. This project demonstrates a complete compilation pipeline, evolving from high-level Abstract Syntax Trees (AST) down to native assembly execution.
+A robust mathematical expression solver and compiler written in modern C++. I intend to use this during my upcoming QM classes (spring 2026).
+
+This project demonstrates a complete compilation pipeline, evolving from high-level Abstract Syntax Trees (AST) down to native assembly execution.
+
+# For future reference:
+
+## Project Status
+
+The project is currently in the **Phase 1: Parsing & AST** stage. The goal is to transform raw string inputs into a structured Abstract Syntax Tree using the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
+
 
 ## Project Vision & Roadmap
 
@@ -22,7 +31,7 @@ The project is structured to showcase various stages of computer science and ele
 - **Key Skills:** Compiler Theory, Intermediate Representation (IR) design.
 
 ### Phase 4: Assembly Translation (Native Execution)
-- **Concept:** Translate bytecode instructions into native x86-64 (or ARM) assembly code.
+- **Concept:** Translate bytecode instructions into native x86-64 (or ARM?) assembly code.
 - **Implementation:** A backend that emits assembly text, managing CPU registers (like `rax`, `rbx`) and the call stack.
 - **Key Skills:** Instruction Set Architecture (ISA), Register Allocation, Calling Conventions.
 
@@ -30,16 +39,3 @@ The project is structured to showcase various stages of computer science and ele
 - **Concept:** Use professional assemblers and linkers to produce a standalone executable.
 - **Implementation:** Integration with `NASM` or `GCC` to assemble and link the generated code into a runnable binary.
 - **Key Skills:** Professional Toolchain usage (Assemblers, Linkers), System Integration.
-
-## Why this Architecture?
-
-By separating the project into these distinct phases, we demonstrate:
-1.  **Versatility:** The ability to solve the same problem using different paradigms (Recursive vs. Stack-based vs. VM).
-2.  **Performance:** Understanding the hardware bottlenecks of high-level abstractions and how to optimize them.
-3.  **Full-Stack Engineering:** A "source-to-binary" understanding of how code moves through a system.
-
-## Portfolio Impact
-
-This project serves as a comprehensive technical showcase for:
-- **Computer Science:** Compilers, Algorithms, Data Structures, and Software Architecture.
-- **Computer Engineering:** Assembly Language, Register Management, and Hardware-Software Interfacing.
