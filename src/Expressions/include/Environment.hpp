@@ -16,11 +16,11 @@ private:
     static Environment* instance;
 
 public:
-    void                                    set(const std::string& name, const Value& value);
-    void                                    set(const std::string& name, const Expression* value);
-    void                                    set(const std::string& name, const std::shared_ptr<Expression>& value);
-    [[nodiscard]] const Value*              get(const std::string& name) const;
-    [[nodiscard]] bool                      exists(const std::string& name) const;
+    void                              set(const std::string& name, const Value& value);
+    void                              set(const std::string& name, const Expression* value);
+    void                              set(const std::string& name, const std::shared_ptr<Expression>& value);
+    [[nodiscard]] const Value*        get(const std::string& name) const;
+    [[nodiscard]] bool                exists(const std::string& name) const;
     [[nodiscard]] static Environment& getInstance() { return *instance; }
 };
 

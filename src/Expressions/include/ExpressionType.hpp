@@ -27,7 +27,7 @@ public:
 
     [[nodiscard]] ExpressionType getType() const { return type; };
 
-    [[nodiscard]] virtual Value evaluate() const = 0;
+    [[nodiscard]] virtual Value                       evaluate() const = 0;
     [[nodiscard]] virtual std::shared_ptr<Expression> clone() const = 0;
 };
 

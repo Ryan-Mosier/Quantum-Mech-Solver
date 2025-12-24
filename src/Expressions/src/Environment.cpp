@@ -12,6 +12,7 @@ Environment* Environment::instance = new Environment();
 
 void Environment::set(const std::string& name, const Value& value) { environment[name] = value; }
 void Environment::set(const std::string& name, const Expression* value) { environment[name] = value->evaluate(); }
+
 void Environment::set(const std::string& name, const std::shared_ptr<Expression>& value) {
     environment[name] = value->evaluate();
 }
