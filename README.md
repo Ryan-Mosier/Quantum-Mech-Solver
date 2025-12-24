@@ -2,14 +2,16 @@
 
 A robust mathematical expression solver and compiler written in modern C++. I intend to use this during my upcoming QM classes (spring 2026).
 
-This project demonstrates a complete compilation pipeline, evolving from high-level Abstract Syntax Trees (AST) down to native assembly execution.
+This project is also intended to showcase various stages of computer science and electrical engineering concepts, from
+software abstractions to hardware-level execution.
 
-# For future reference:
+# For my future reference:
 
 ## Project Status
 
 The project is currently in the **Phase 1: Parsing & AST** stage. The goal is to transform raw string inputs into a structured Abstract Syntax Tree using the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
 
+The AST is complete, but the parser is not yet complete.
 
 ## Project Vision & Roadmap
 
