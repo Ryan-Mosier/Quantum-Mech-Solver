@@ -5,31 +5,32 @@
 #ifndef QUANTUM_MECH_SOLVER_PARSER_H
 #define QUANTUM_MECH_SOLVER_PARSER_H
 #include <list>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
 #include "Expressions/Expressions.hpp"
 
-/// Converts a string into a vector of tokens, which can then be parsed into expressions
+/// Converts a string into a 2D vector of tokens, which can then be parsed into expressions
 /// This does an entire file (src string) at a time. In the future it may make more sense to do this line by line instead
 /// TODO: LaTex compatibility?
 class Tokenizer {
 private:
-    std::string                   src;
-    std::vector<std::string>      lines;
-    std::vector<std::list<Token>> tokens;
+    std::string                     src;
+    std::vector<std::string>        lines;
+    std::vector<std::vector<Token>> tokens;
 
 
-    static TokenType        trySingleCharTokenize(const char& c);  // returns TokenType.Null on fail
-    static std::list<Token> tokenizeLine(const std::string& line); // parses a single line of tokens
+    [[nodiscard]] std::optional<Token> trySingleCharTokenize(const size_t& line_idx, size_t& char_idx) const;
+    [[nodiscard]] std::optional<Token> tryMultiCharTokenize(const size_t& line_idx, size_t& char_idx) const;
+    std::vector<Token>   tokenizeLine(const size_t& line_idx) const; // parses a single line of tokens
 
-    void cleanseWhiteSpace(); //removes whitespace
-    void seperateLines();     // separates lines into vector (also calls cleanseWhitespace)
+    void seperateLines(); // separates lines into the vector, 'lines' are separated with ';'
 
 public:
     Tokenizer(std::string src) : src(std::move(src)) {}
-    std::vector<std::list<Token>> getTokens() { return tokens; }
-    Tokenizer&                    tokenize();
+    const std::vector<std::vector<Token>>& getTokens() { return tokens; }
+    Tokenizer&                             tokenize();
 };
 
 class Parser {

@@ -24,7 +24,7 @@ TEST(CreationTests, TestIdentifierCreation) {
 TEST(CreationTests, TestBinaryExpressionCreation) {
     auto  l = std::make_shared<Number>(1);
     auto  r = std::make_shared<Number>(2);
-    Token plus(TokenType::Plus, "1", "2");
+    Token plus(TokenType::Plus, "+", 0);
     auto  expr = ExpressionFactory::createExpression(plus, l, r);
     ASSERT_EQ(expr->getType(), ExpressionType::Plus);
 }
@@ -44,12 +44,12 @@ TEST(CreationTests, TestBinaryExpressionTypes) {
     auto l = std::make_unique<Number>(1);
     auto r = std::make_unique<Number>(2);
 
-    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Plus, "", ""), l->clone(), r->clone())->getType(),
+    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Plus, "+", 0), l->clone(), r->clone())->getType(),
               ExpressionType::Plus);
-    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Minus, "", ""), l->clone(), r->clone())->getType(),
+    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Minus, "-", 0), l->clone(), r->clone())->getType(),
               ExpressionType::Minus);
-    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Star, "", ""), l->clone(), r->clone())->getType(),
+    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Star, "*", 0), l->clone(), r->clone())->getType(),
               ExpressionType::Multiply);
-    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Slash, "", ""), l->clone(), r->clone())->getType(),
+    ASSERT_EQ(ExpressionFactory::createExpression(Token(TokenType::Slash, "/", 0), l->clone(), r->clone())->getType(),
               ExpressionType::Divide);
 }

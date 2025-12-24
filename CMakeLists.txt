@@ -18,6 +18,9 @@ endif()
 add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE Expressions)
 
+add_library(parser src/Parser.cpp)
+target_link_libraries(parser PRIVATE Expressions)
+
 if (BUILD_TESTING)
     add_custom_target(run_tests
             COMMAND ${CMAKE_CTEST_COMMAND} -C $<CONFIG>

@@ -6,33 +6,26 @@
 #ifndef QUANTUM_MECH_SOLVER_TOKENTYPE_H
 #define QUANTUM_MECH_SOLVER_TOKENTYPE_H
 
-#include <map>
-
 enum class TokenType {
     Null,
     Assignment, // Basic
     Plus, Minus, Star, Slash,
     LParen, RParen,
-    Comma // Seperator
-};
-
-const std::map<char, TokenType> token_map = {
-    {'=', TokenType::Assignment},
-    {'+', TokenType::Plus},
-    {'-', TokenType::Minus},
-    {'*', TokenType::Star},
-    {'/', TokenType::Slash},
-    {'(', TokenType::LParen},
-    {')', TokenType::RParen},
-    {',', TokenType::Comma}
+    Comma, // Seperator
+    Number, Identifier
 };
 
 struct Token {
-    TokenType                 type;
-    std::string               left;  // the string to the left of this token until the next token on the left
-    std::string               right; // same, but right
-    Token(TokenType type, std::string left, std::string right) : type(type), left(std::move(left)),
-                                                                 right(std::move(right)) {}
+    TokenType   type;
+    std::string value; //the string that this token represents
+    // size_t is much bigger than we really should need, but it got clang to shut up...
+    size_t start_index;
+    size_t end_index;
+
+    Token(const TokenType& type, std::string value, const size_t& start_index) : type(type), value(std::move(value)),
+                                                                   start_index(start_index),
+                                                                   end_index(start_index + value.size()) {}
+    explicit Token(const TokenType& type) : Token(type, "", 0) {}
 };
 
 #endif //QUANTUM_MECH_SOLVER_TOKENTYPE_H
