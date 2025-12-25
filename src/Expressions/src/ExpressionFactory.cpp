@@ -13,7 +13,7 @@ std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token& tok
         default: throw std::runtime_error("No expression of given size: " + std::to_string(expressions.size()));
         case 1:
             throw std::runtime_error("Unary expression not yet implemented!");
-            // return std::make_shared<UnaryExpression>(expressions[0], strategy, mapToExpression(token.type));
+        // return std::make_shared<UnaryExpression>(expressions[0], strategy, mapToExpression(token.type));
         case 2:
             const BinaryOpStrategy* strategy = BinaryStrategyFactory::createStrategy(token.type);
             return std::make_shared<BinaryExpression>(expressions[0], expressions[1], strategy,

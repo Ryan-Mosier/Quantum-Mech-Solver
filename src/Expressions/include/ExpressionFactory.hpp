@@ -12,9 +12,9 @@
 
 class ExpressionFactory {
 public:
-
     /// Fills expressions left to right based on the vector
-    static std::shared_ptr<Expression> createExpression(const Token& token, const std::vector<std::shared_ptr<Expression>>& expressions);
+    static std::shared_ptr<Expression> createExpression(const Token&                                    token,
+                                                        const std::vector<std::shared_ptr<Expression>>& expressions);
 
     //used for atom/leaf expressions
     static std::shared_ptr<Expression> createExpression(const std::string& type, const std::string& string);

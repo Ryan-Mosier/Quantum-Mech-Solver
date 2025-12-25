@@ -16,7 +16,6 @@ static auto divide   = new Divide();
 static auto assign   = new Assign();
 
 
-
 const BinaryOpStrategy* BinaryStrategyFactory::createStrategy(TokenType type) {
     return createStrategy(mapToExpression(type));
 }
