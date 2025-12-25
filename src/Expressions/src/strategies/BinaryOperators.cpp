@@ -40,7 +40,8 @@ Value Divide::eval(const std::shared_ptr<Expression> left, const std::shared_ptr
 
 Value Assign::eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const {
     const auto identifier = std::dynamic_pointer_cast<Identifier>(left);
-    if (!identifier) throw std::runtime_error("Can only assign to identifiers"); // Might need to update this later, but I can't think of any other cases rn
+    if (!identifier) throw std::runtime_error("Can only assign to identifiers");
+    // Might need to update this later, but I can't think of any other cases rn
     const auto r = right->evaluate();
     Environment::getInstance().set(identifier->getName(), r);
     return r;

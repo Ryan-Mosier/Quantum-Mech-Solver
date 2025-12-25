@@ -13,6 +13,7 @@ static auto plus     = new Plus();
 static auto minus    = new Minus();
 static auto multiply = new Multiply();
 static auto divide   = new Divide();
+static auto assign   = new Assign();
 
 inline ExpressionType getExpressionType(TokenType type) {
     switch (type) {
@@ -20,7 +21,8 @@ inline ExpressionType getExpressionType(TokenType type) {
         case TokenType::Minus: return ExpressionType::Minus;
         case TokenType::Star: return ExpressionType::Multiply;
         case TokenType::Slash: return ExpressionType::Divide;
-        default: throw std::invalid_argument("invalid token type");
+        case TokenType::Assignment: return ExpressionType::Assignment;
+        default: throw std::invalid_argument("invalid token type" + std::to_string(static_cast<int>(type)));
     }
 }
 
@@ -40,6 +42,8 @@ const BinaryOpStrategy* BinaryStrategyFactory::createStrategy(ExpressionType typ
             return multiply;
         case ExpressionType::Divide:
             return divide;
+        case ExpressionType::Assignment:
+            return assign;
     }
 }
 
