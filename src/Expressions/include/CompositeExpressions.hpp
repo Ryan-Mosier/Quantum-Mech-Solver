@@ -19,7 +19,8 @@ class UnaryExpression : public Expression {
 public:
     ~UnaryExpression() override = default;
 
-    UnaryExpression(const std::shared_ptr<Expression>& expression, const OpStrategy* strategy);
+    UnaryExpression(const std::shared_ptr<Expression>& expression, const OpStrategy* strategy,
+                    const ExpressionType&              type);
 
     [[nodiscard]] Value evaluate() const override;
 
@@ -36,7 +37,7 @@ public:
     ~BinaryExpression() override = default;
 
     BinaryExpression(const std::shared_ptr<Expression>& left, const std::shared_ptr<Expression>& right,
-                     const BinaryOpStrategy*            strategy);
+                     const BinaryOpStrategy*            strategy, const ExpressionType&          type);
 
     [[nodiscard]] Value evaluate() const override;
 
