@@ -27,5 +27,9 @@ class Divide : public BinaryOpStrategy {
     eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const override;
 };
 
+class Assign : public BinaryOpStrategy {
+    [[nodiscard]] Value
+    eval(std::shared_ptr<Expression> left, std::shared_ptr<Expression> right) const override;
+};
 
 #endif //EXPRESSION_LIBRARY_BINARYOPERATORS_HPP
