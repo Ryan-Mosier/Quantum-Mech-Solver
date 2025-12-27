@@ -30,7 +30,7 @@ inline bool canBeUnary(TokenType type) {
 
 ///
 /// This is where we define our order of operations (in the binding power functions)
-///
+/// Higher number means it has higher precedence
 ///
 // TODO: where does comma go?
 // Assignments
