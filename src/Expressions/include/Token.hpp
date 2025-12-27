@@ -5,15 +5,98 @@
 
 #ifndef QUANTUM_MECH_SOLVER_TOKENTYPE_H
 #define QUANTUM_MECH_SOLVER_TOKENTYPE_H
+#include <optional>
+
+#include "ExpressionType.hpp"
 
 enum class TokenType {
     Null,
     Assignment, // Basic
     Plus, Minus, Star, Slash,
     LParen, RParen,
-    Comma, // Seperator
-    Number, Identifier
+    Comma, // Seperator for functions (eventually)
+    Number, Identifier,
+    EOFToken
 };
+
+inline bool canBeUnary(TokenType type) {
+    switch (type) {
+        default:
+            return false;
+        case TokenType::Minus:
+            return true;
+    }
+}
+
+///
+/// This is where we define our order of operations (in the binding power functions)
+///
+///
+// TODO: where does comma go?
+// Assignments
+#define first_level_power 1.0f
+// ADD,SUB
+#define second_level_power 2.0f
+#define third_level_power 3.0f
+#define fourth_level_power 4.0f
+// MUL,DIV
+#define fifth_level_power 5.0f
+#define sixth_level_power 6.0f
+#define seventh_level_power 7.0f
+#define eighth_level_power 8.0f
+#define ninth_level_power 9.0f
+
+#define tenth_level_power 10.0f
+
+struct BindingPower {
+    float left;
+    float right;
+    BindingPower(const float& p) : left(p), right(p + 0.1f) {}
+    // override to invert associativity (the bool is discarded)
+    BindingPower(const float& p, [[maybe_unused]] bool) : left(p), right(p - 0.1f) {}
+};
+
+//TODO: function to map binding powers
+inline std::optional<float> prefixBP(TokenType type) {
+    // this functionally acts as a bool
+    // nullopt is used when the token can't be used as a prefix
+    // any other value is used when it can be
+    using enum TokenType;
+    switch (type) {
+        default: return std::nullopt;
+        case Minus: return first_level_power;
+    }
+}
+
+inline std::optional<BindingPower> infixBP(TokenType type) {
+    using enum TokenType;
+    switch (type) {
+        case Plus:
+        case Minus:
+            return second_level_power;
+        case Comma:
+            return (ninth_level_power); // TODO: is this right?
+        case Star:
+        case Slash:
+            return (fifth_level_power);
+        case Assignment:
+            return (first_level_power, true);
+
+        case Null:
+        case LParen:
+        case RParen:
+        case Number:
+        case Identifier:
+        case EOFToken:
+            break;
+    }
+    return std::nullopt;
+}
+
+
+// TODO: define functionality for this
+inline std::optional<BindingPower> postfixBP(TokenType type) { return std::nullopt; }
+
 
 struct Token {
     TokenType   type;

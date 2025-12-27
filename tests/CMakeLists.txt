@@ -17,13 +17,15 @@ endif()
 FetchContent_MakeAvailable(googletest)
 
 add_executable(runUnitTests
-        ExpressionsTest/CreationTests.cpp
-        ExpressionsTest/UsageTests.cpp
+        ExpressionTests/CreationTests.cpp
+        ExpressionTests/UsageTests.cpp
+        ParserTests/tests.cpp
 )
 
 target_link_libraries(runUnitTests PRIVATE
         GTest::gtest_main
         Expressions
+        parser
 )
 
 include(GoogleTest)

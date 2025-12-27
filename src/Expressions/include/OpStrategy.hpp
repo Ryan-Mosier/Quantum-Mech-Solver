@@ -7,10 +7,11 @@
 #include <memory>
 #include "ExpressionType.hpp"
 
-class OpStrategy {
+class UnaryOpStrategy {
 public:
-    virtual                     ~OpStrategy() = default;
-    [[nodiscard]] virtual Value eval(const std::shared_ptr<Expression>& expression) const = 0;
+    virtual                           ~UnaryOpStrategy() = default;
+    [[nodiscard]] virtual Value       eval(const std::shared_ptr<Expression>& expression) const = 0;
+    [[nodiscard]] virtual std::string toString() const = 0;
 };
 
 class BinaryOpStrategy {
@@ -18,6 +19,7 @@ public:
     virtual                     ~BinaryOpStrategy() = default;
     [[nodiscard]] virtual Value eval(std::shared_ptr<Expression> left,
                                      std::shared_ptr<Expression> right) const = 0;
+    [[nodiscard]] virtual std::string toString() const = 0;
 };
 
 #endif //EXPRESSION_LIBRARY_UNARYOPSTRATEGY_HPP

@@ -14,6 +14,7 @@ public:
     Number(const std::string& value);
     [[nodiscard]] Value                       evaluate() const override;
     [[nodiscard]] std::shared_ptr<Expression> clone() const override;
+    [[nodiscard]] std::string                 toString() const override;
 };
 
 class Identifier : public Expression {
@@ -23,6 +24,7 @@ public:
     Identifier(std::string name);
     [[nodiscard]] Value                       evaluate() const override;
     [[nodiscard]] std::shared_ptr<Expression> clone() const override;
+    [[nodiscard]] std::string                 toString() const override;
     [[nodiscard]] const std::string&          getName() const;
 };
 

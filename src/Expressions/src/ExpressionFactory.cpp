@@ -2,24 +2,34 @@
 // Created by ryanm on 12/21/2025.
 //
 
+#include <io.h>
+
 #include "Expressions.hpp"
 #include <stdexcept>
-#include "strategies/BinaryStrategyFactory.hpp"
+#include "strategies/OperatorStrategyFactory.hpp"
 
 std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token& token,
                                                                 const std::vector<std::shared_ptr<Expression>>&
                                                                 expressions) {
     switch (expressions.size()) {
         default: throw std::runtime_error("No expression of given size: " + std::to_string(expressions.size()));
-        case 1:
-            throw std::runtime_error("Unary expression not yet implemented!");
-        // return std::make_shared<UnaryExpression>(expressions[0], strategy, mapToExpression(token.type));
-        case 2:
+        case 1: { return createExpression(token, expressions[0]); }
+        case 2: {
             const BinaryOpStrategy* strategy = BinaryStrategyFactory::createStrategy(token.type);
             return std::make_shared<BinaryExpression>(expressions[0], expressions[1], strategy,
-                                                      mapToExpression(token.type));
+                                                      mapToBinaryExpression(token.type));
+        }
     }
 }
+
+std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token&                       token,
+                                                                const std::shared_ptr<Expression>& expressions) {
+    const UnaryOpStrategy* strategy = UnaryStrategyFactory::createStrategy(token.type);
+    return std::make_shared<UnaryExpression>(expressions, strategy, mapToUnaryExpression(token.type));
+}
+
+// We have to manually verify if the following are valid inputs, we can't trust the mapTo___Expression functions to throw exceptions for us
+// Realistically, if our parser is working correctly, these should never fail (our parser should throw the error instead)
 
 std::shared_ptr<Expression> ExpressionFactory::createExpression(const ExpressionType& type, const std::string& string) {
     switch (type) {

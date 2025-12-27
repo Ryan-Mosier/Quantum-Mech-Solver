@@ -14,17 +14,19 @@ using leaf = std::variant<Value, std::shared_ptr<Expression>>;
 
 class UnaryExpression : public Expression {
     std::shared_ptr<Expression> expression;
-    const OpStrategy*           strategy;
+    const UnaryOpStrategy*      strategy;
 
 public:
     ~UnaryExpression() override = default;
 
-    UnaryExpression(const std::shared_ptr<Expression>& expression, const OpStrategy* strategy,
+    UnaryExpression(const std::shared_ptr<Expression>& expression, const UnaryOpStrategy* strategy,
                     const ExpressionType&              type);
 
     [[nodiscard]] Value evaluate() const override;
 
     [[nodiscard]] std::shared_ptr<Expression> clone() const override;
+
+    [[nodiscard]] std::string toString() const override;
 };
 
 class BinaryExpression : public Expression {
@@ -42,6 +44,8 @@ public:
     [[nodiscard]] Value evaluate() const override;
 
     [[nodiscard]] std::shared_ptr<Expression> clone() const override;
+
+    [[nodiscard]] std::string toString() const override;
 };
 
 

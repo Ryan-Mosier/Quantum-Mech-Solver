@@ -15,10 +15,11 @@
 using Value = double;
 
 enum class ExpressionType {
+    Neg,
     Identifier, Number, Assignment, // Basic
     Plus, Minus, Multiply, Divide,  // Arithmetic
     FunctionCall,                   // Call a built-in function
-    Null
+    Null = 0                        // Allow testing if not null in if statements
 };
 
 
@@ -27,7 +28,8 @@ public:
     explicit CastError(const std::string& msg) : std::runtime_error(msg) {}
 };
 
-inline ExpressionType mapToExpression(TokenType type) {
+/// Map a token type to a binary expression type
+inline ExpressionType mapToBinaryExpression(TokenType type) {
     switch (type) {
         default: throw std::invalid_argument("Invalid token type: " + std::to_string(static_cast<int>(type)));
 
@@ -50,6 +52,14 @@ inline ExpressionType mapToExpression(TokenType type) {
     }
 }
 
+/// Map a token type to a unary expression type
+inline ExpressionType mapToUnaryExpression(TokenType type) {
+    switch (type) {
+        default: throw std::invalid_argument("Invalid token type: " + std::to_string(static_cast<int>(type)));
+        case TokenType::Minus: return ExpressionType::Neg;
+    }
+}
+
 class Expression {
 protected:
     ExpressionType type;
@@ -62,6 +72,8 @@ public:
 
     [[nodiscard]] virtual Value                       evaluate() const = 0;
     [[nodiscard]] virtual std::shared_ptr<Expression> clone() const = 0;
+
+    [[nodiscard]] virtual std::string toString() const = 0;
 };
 
 

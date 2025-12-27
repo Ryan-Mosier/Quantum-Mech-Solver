@@ -10,6 +10,12 @@
 #include "ExpressionType.hpp"
 #include "Token.hpp"
 
+class UnaryStrategyFactory {
+public:
+    static const UnaryOpStrategy* createStrategy(TokenType type);
+    static const UnaryOpStrategy* createStrategy(ExpressionType type);
+    static ExpressionType         getType(const UnaryOpStrategy* strategy);
+};
 
 class BinaryStrategyFactory {
 public:

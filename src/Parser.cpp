@@ -41,7 +41,6 @@ std::optional<Token> Tokenizer::trySingleCharTokenize(const size_t& line_idx, si
         token_string += line[i];
         i++;
     }
-    if (i == upper_limit) { return std::nullopt; }
     const auto start_idx = char_idx;
     char_idx             = i;
     return Token(type, token_string, start_idx);
@@ -63,13 +62,13 @@ std::optional<Token> Tokenizer::tryMultiCharTokenize(const size_t& line_idx, siz
     return token;
 }
 
-std::vector<Token> Tokenizer::tokenizeLine(const size_t& line_idx) const {
-    std::vector<Token> line_tokens;
+std::deque<Token> Tokenizer::tokenizeLine(const size_t& line_idx) const {
+    std::deque<Token>  line_tokens;
     const std::string& line = lines[line_idx];
     size_t             i    = 0;
     const size_t       size = line.size();
     while (i < size) {
-        std::optional<Token> token = trySingleCharTokenize(line[i], i);
+        std::optional<Token> token = trySingleCharTokenize(line_idx, i);
         if (token) {
             if (token->type == TokenType::Null)
                 continue;
@@ -84,7 +83,7 @@ std::vector<Token> Tokenizer::tokenizeLine(const size_t& line_idx) const {
             );
         }
     }
-
+    line_tokens.emplace_back(TokenType::EOFToken, "", size);
     return line_tokens;
 }
 
@@ -92,6 +91,7 @@ void Tokenizer::seperateLines() {
     std::string line;
     bool        isComment = false;
     for (const auto& c : src) {
+        // Are there any more newline characters?
         if ((c == '\n' || c == '\r') && isComment) { isComment = false; }
         if (isComment) { continue; }
 
@@ -106,6 +106,81 @@ void Tokenizer::seperateLines() {
 
 Tokenizer& Tokenizer::tokenize() {
     seperateLines();
-    for (int i = 0; i < lines.size(); i++) { tokens.push_back(tokenizeLine(i)); }
+    for (int i = 0; i < lines.size(); i++) { tokens.emplace_back(tokenizeLine(i)); }
     return *this; //allows chaining
+}
+
+void Parser::parse() {
+    for (current_line_idx = 0; current_line_idx < srcTokens.size(); current_line_idx++) {
+        auto lineExpr = parseExpression(0);
+        expressions.push_back(lineExpr);
+    }
+}
+
+/// Simplify Parsing code
+inline void throwParseError(const size_t& current_line_idx, const size_t& current_idx) {
+    throw std::runtime_error("Invalid token at line " + std::to_string(current_line_idx) + " at index " +
+        std::to_string(current_idx - 1));
+}
+
+
+// allowed: anything that can be unary, numbers, identifiers
+inline bool isValidStart(const TokenType& type) {
+    return canBeUnary(type) || type == TokenType::Number || type == TokenType::Identifier;
+}
+
+/// Using Pratt Parsing
+std::shared_ptr<Expression> Parser::parseExpression(const float min_bp) {
+    // Get first token
+    TokenLine& tokenLine  = srcTokens[current_line_idx]; // simplify access
+    Token      firstToken = tokenLine.next();            // consume first
+    // confirm valid lhs
+    using enum TokenType;
+    std::shared_ptr<Expression> lhs   = nullptr;
+    auto                        preBP = prefixBP(firstToken.type);
+
+    if (preBP.has_value()) {
+        auto internal = parseExpression(preBP.value());
+        lhs           = ExpressionFactory::createExpression(firstToken, internal);
+    }
+    else {
+        switch (firstToken.type) {
+            default:
+                throwParseError(current_line_idx, current_idx);
+            case Number:
+            case Identifier: {
+                auto type = mapToBinaryExpression(firstToken.type);
+                lhs       = ExpressionFactory::createExpression(type, firstToken.value);
+                break;
+            }
+            case LParen:
+                lhs = parseExpression(0);
+                // make sure that we terminated on a RParen
+                if (srcTokens[current_line_idx].next().type != RParen) {
+                    throwParseError(current_line_idx, current_idx);
+                }
+                break;
+        }
+    }
+
+    while (true) {
+        auto currToken = tokenLine.peek();
+        if (currToken.type == EOFToken || currToken.type == RParen) { break; }
+        if (currToken.type == Assignment && (lhs.get()->getType() != ExpressionType::Identifier)) {
+            throwParseError(current_line_idx, current_idx);
+        }
+        auto bp = infixBP(currToken.type);
+        if (!bp.has_value()) { break; }
+        if (bp->left < min_bp) { break; }
+        tokenLine.pop();
+        auto rhs = parseExpression(bp->right);
+        lhs      = ExpressionFactory::createExpression(currToken, {lhs, rhs});
+    }
+    return lhs;
+}
+
+
+Parser::Parser(const std::string& src) {
+    srcTokens = Tokenizer(src).tokenize().getTokens();
+    parse();
 }

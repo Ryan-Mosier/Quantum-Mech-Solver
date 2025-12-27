@@ -8,33 +8,24 @@
 #include "Atoms.hpp"
 #include "Environment.hpp"
 
+#define nl left->evaluate()
+#define nr right->evaluate()
 
-// This function will need to be checked when more types are added to Value
-std::pair<double, double> extractNumbers(const std::shared_ptr<Expression>& left,
-                                         const std::shared_ptr<Expression>& right) {
-    auto l = left->evaluate();
-    auto r = right->evaluate();
-    return {l, r};
-}
 
 Value Plus::eval(const std::shared_ptr<Expression> left, const std::shared_ptr<Expression> right) const {
-    auto [nl, nr] = extractNumbers(left, right);
     return nl + nr;
 }
 
 Value Minus::eval(const std::shared_ptr<Expression> left, const std::shared_ptr<Expression> right) const {
-    auto [nl, nr] = extractNumbers(left, right);
     return nl - nr;
 }
 
 Value Multiply::eval(const std::shared_ptr<Expression> left, const std::shared_ptr<Expression> right) const {
-    auto [nl, nr] = extractNumbers(left, right);
     return nl * nr;
 }
 
 Value Divide::eval(const std::shared_ptr<Expression> left, const std::shared_ptr<Expression> right) const {
-    auto [nl, nr] = extractNumbers(left, right);
-    if (nr == 0) throw std::runtime_error("Division by zero");
+    if (nr == 0) throw std::runtime_error("Division by zero"); //compiler should fix this
     return nl / nr;
 }
 
