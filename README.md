@@ -11,13 +11,11 @@ software abstractions to hardware-level execution.
 
 The project is currently in the **Phase 1: Parsing & AST** stage. The goal is to transform raw string inputs into a structured Abstract Syntax Tree using the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
 
-The AST is complete, but the parser is not yet complete.
-
 ## Project Vision & Roadmap
 
 The project is structured to showcase various stages of computer science and electrical engineering concepts, from software abstractions to hardware-level execution.
 
-### Phase 1: Parsing & AST (Current State)
+### Phase 1: Parsing & AST (Functional Design)
 - **Concept:** Transform raw string inputs into a structured Abstract Syntax Tree.
 - **Implementation:** Uses the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
 - **Key Skills:** OOP Design Patterns, Tree Traversal, Recursive Algorithms.
