@@ -9,7 +9,12 @@ software abstractions to hardware-level execution.
 
 ## Project Status
 
-The project is currently in the **Phase 1: Parsing & AST** stage. The goal is to transform raw string inputs into a structured Abstract Syntax Tree using the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
+The project is currently in the **Phase 2: AST Flattening** stage.
+The goal is to refactor the AST into a cache-friendly layout that ideally can be executed sequentially in a std::vector.
+This will remove many potential issues that arise from the recursive nature of the AST.
+Namely, the stack overflow issue, however, it will also likely greatly improve execution speed for larger trees.
+
+This can be seen as an intermediate step towards **Phase 3: Sequential Execution**.
 
 ## Project Vision & Roadmap
 
