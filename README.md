@@ -18,7 +18,7 @@ The project is structured to showcase various stages of computer science and ele
 ### Phase 1: Parsing & AST (Functional Design)
 - **Concept:** Transform raw string inputs into a structured Abstract Syntax Tree.
 - **Implementation:** Uses the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
-- **Key Skills:** OOP Design Patterns, Tree Traversal, Recursive Algorithms.
+- **Key Skills:** OOP Design Patterns, Recursive Algorithms, Pratt Parsing.
 
 ### Phase 2: AST Flattening (Data-Oriented Design)
 - **Concept:** Move from a "forest of pointers" to a cache-friendly memory layout.
