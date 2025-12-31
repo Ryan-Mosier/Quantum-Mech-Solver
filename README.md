@@ -9,7 +9,13 @@ software abstractions to hardware-level execution.
 
 ## Project Status
 
-The project is currently in the **Phase 1: Parsing & AST** stage. The goal is to transform raw string inputs into a structured Abstract Syntax Tree using the **Strategy Pattern** for operator evaluation and a recursive **Composite Pattern** for the tree structure.
+This is a snapshot of the project at the end of **Phase 1: Parsing & AST**.
+At this point, the project is still in its infancy and has some major limitations.
+The AST is recursive, which can lead to stack overflow issues for large expressions.
+The project is also missing a lot of features, as it only supports a small subset of mathematical operations and does
+not support vectors or matrices.
+
+This phase can be properly seen as a proof of concept and serves as a good starting point for future work.
 
 ## Project Vision & Roadmap
 

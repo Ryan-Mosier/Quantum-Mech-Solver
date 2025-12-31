@@ -1,13 +1,10 @@
 //
 // Created by ryanm on 12/21/2025.
 //
-
-#include "OperatorStrategyFactory.hpp"
-
+module;
 #include <stdexcept>
+module Expression.Strategies.Factory;
 
-#include "BinaryOperators.hpp"
-#include "UnaryOperators.hpp"
 
 // These provide a static location for the strategies, each instance will actually just reference this.
 //Unary

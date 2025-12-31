@@ -2,27 +2,25 @@
 // Created by ryanm on 12/21/2025.
 //
 
-#ifndef EXPRESSION_LIBRARY_BINARYSTRATEGYFACTORY_HPP
-#define EXPRESSION_LIBRARY_BINARYSTRATEGYFACTORY_HPP
-#include <memory>
 
-#include "OpStrategy.hpp"
-#include "ExpressionType.hpp"
-#include "Token.hpp"
+export module Expression.Strategies.Factory;
 
-class UnaryStrategyFactory {
+import Expression.Expression;
+import Expression.OpStrategy;
+import Expression.Token;
+import Expression.Strategies.Operators;
+
+export class UnaryStrategyFactory {
 public:
     static const UnaryOpStrategy* createStrategy(TokenType type);
     static const UnaryOpStrategy* createStrategy(ExpressionType type);
     static ExpressionType         getType(const UnaryOpStrategy* strategy);
 };
 
-class BinaryStrategyFactory {
+export class BinaryStrategyFactory {
 public:
     static const BinaryOpStrategy* createStrategy(TokenType type);
     static const BinaryOpStrategy* createStrategy(ExpressionType type);
     static ExpressionType          getType(const BinaryOpStrategy* strategy);
 };
 
-
-#endif //EXPRESSION_LIBRARY_BINARYSTRATEGYFACTORY_HPP

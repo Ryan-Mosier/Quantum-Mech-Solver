@@ -1,16 +1,24 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.28)
 
 project("Expression Library")
 
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_compile_options(-O3)
+add_library(Expressions STATIC)
 
-include_directories(include)
-include_directories(.)
+target_compile_features(Expressions PUBLIC cxx_std_23)
 
-aux_source_directory(src SOURCE_FILES)
-aux_source_directory(src/strategies SOURCE_FILES)
-add_library(Expressions ${SOURCE_FILES})
+target_compile_options(Expressions PRIVATE $<$<CONFIG:Release>:-O3>)
 
+file(GLOB_RECURSE EXPR_CPP CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+file(GLOB_RECURSE EXPR_MODULES CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cppm
+)
+
+target_sources(Expressions
+        PUBLIC FILE_SET expr_modules TYPE CXX_MODULES FILES ${EXPR_MODULES}
+        PRIVATE ${EXPR_CPP}
+)

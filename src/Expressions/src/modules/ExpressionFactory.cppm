@@ -1,16 +1,22 @@
 //
 // Created by ryanm on 12/21/2025.
 //
-
-#ifndef QUANTUM_MECH_SOLVER_EXPRESSIONFACTORY_H
-#define QUANTUM_MECH_SOLVER_EXPRESSIONFACTORY_H
+module;
 #include <string>
 #include <vector>
+#include <memory>
 
-#include "ExpressionType.hpp"
-#include "Token.hpp"
+export module Expression.ExpressionFactory;
 
-class ExpressionFactory {
+import Expression.Expression;
+import Expression.Token;
+import Expression.Strategies.Factory;
+import Expression.OpStrategy;
+import Expression.CompositeExpressions;
+import Expression.Atoms;
+
+
+export class ExpressionFactory {
 public:
     /// Fills expressions left to right based on the vector
     static std::shared_ptr<Expression> createExpression(const Token&                                    token,
@@ -24,6 +30,3 @@ public:
     static std::shared_ptr<Expression> createExpression(const ExpressionType& type, const std::string& string);
     static std::shared_ptr<Expression> createExpression(const ExpressionType& type, const double& value);
 };
-
-
-#endif //QUANTUM_MECH_SOLVER_EXPRESSIONFACTORY_H

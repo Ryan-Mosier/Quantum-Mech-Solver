@@ -1,18 +1,18 @@
 //
 // Created by ryanm on 12/21/2025.
 //
-
-#ifndef EXPRESSION_LIBRARY_UNARYEXPRESSION_HPP
-#define EXPRESSION_LIBRARY_UNARYEXPRESSION_HPP
-
+module;
 #include <variant>
+#include <memory>
 
-#include "OpStrategy.hpp"
-#include "ExpressionType.hpp"
+export module Expression.CompositeExpressions;
 
-using leaf = std::variant<Value, std::shared_ptr<Expression>>;
+export import Expression.Expression;
+export import Expression.OpStrategy;
 
-class UnaryExpression : public Expression {
+export using leaf = std::variant<Value, std::shared_ptr<Expression>>;
+
+export class UnaryExpression : public Expression {
     std::shared_ptr<Expression> expression;
     const UnaryOpStrategy*      strategy;
 
@@ -29,7 +29,7 @@ public:
     [[nodiscard]] std::string toString() const override;
 };
 
-class BinaryExpression : public Expression {
+export class BinaryExpression : public Expression {
     // may want to consider shared pointers to save on clone overhead if it turns out to be large
     std::shared_ptr<Expression> left;
     std::shared_ptr<Expression> right;
@@ -49,4 +49,3 @@ public:
 };
 
 
-#endif //EXPRESSION_LIBRARY_UNARYEXPRESSION_HPP

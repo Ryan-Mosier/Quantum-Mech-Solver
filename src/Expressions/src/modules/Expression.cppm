@@ -1,20 +1,20 @@
 //
 // Created by ryanm on 12/21/2025.
 //
-
-#ifndef QUANTUM_MECH_SOLVER_TYPES_H
-#define QUANTUM_MECH_SOLVER_TYPES_H
+module;
 
 #include <memory>
 #include <stdexcept>
 #include <string>
 
-#include "Token.hpp"
+export module Expression.Expression;
+import Expression.Token;
 
-/// Terminal Types of the AST, use std::variant<> for more in future
-using Value = double;
 
-enum class ExpressionType {
+/// Terminal Types of the AST, use std::variant<> for more in the future
+export using Value = double;
+
+export enum class ExpressionType {
     Neg,
     Identifier, Number, Assignment, // Basic
     Plus, Minus, Multiply, Divide,  // Arithmetic
@@ -23,13 +23,8 @@ enum class ExpressionType {
 };
 
 
-class CastError : public std::runtime_error {
-public:
-    explicit CastError(const std::string& msg) : std::runtime_error(msg) {}
-};
-
 /// Map a token type to a binary expression type
-inline ExpressionType mapToBinaryExpression(TokenType type) {
+export inline ExpressionType mapToBinaryExpression(TokenType type) {
     switch (type) {
         default: throw std::invalid_argument("Invalid token type: " + std::to_string(static_cast<int>(type)));
 
@@ -44,8 +39,8 @@ inline ExpressionType mapToBinaryExpression(TokenType type) {
 
         case TokenType::LParen:
         case TokenType::RParen:
-            throw CastError("Parenthesis behavior needs more info, must be handled in parser");
-        case TokenType::Comma: throw CastError("Comma is not an expression");
+            throw std::invalid_argument("Parenthesis behavior needs more info, must be handled in parser");
+        case TokenType::Comma: throw std::invalid_argument("Comma is not an expression");
 
         case TokenType::Identifier: return ExpressionType::Identifier;
         case TokenType::Number: return ExpressionType::Number;
@@ -53,14 +48,14 @@ inline ExpressionType mapToBinaryExpression(TokenType type) {
 }
 
 /// Map a token type to a unary expression type
-inline ExpressionType mapToUnaryExpression(TokenType type) {
+export inline ExpressionType mapToUnaryExpression(TokenType type) {
     switch (type) {
         default: throw std::invalid_argument("Invalid token type: " + std::to_string(static_cast<int>(type)));
         case TokenType::Minus: return ExpressionType::Neg;
     }
 }
 
-class Expression {
+export class Expression {
 protected:
     ExpressionType type;
 
@@ -75,6 +70,3 @@ public:
 
     [[nodiscard]] virtual std::string toString() const = 0;
 };
-
-
-#endif //QUANTUM_MECH_SOLVER_TYPES_H

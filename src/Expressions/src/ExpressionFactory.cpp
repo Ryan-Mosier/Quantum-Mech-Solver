@@ -1,12 +1,13 @@
 //
 // Created by ryanm on 12/21/2025.
 //
-
-#include <io.h>
-
-#include "Expressions.hpp"
+module;
 #include <stdexcept>
-#include "strategies/OperatorStrategyFactory.hpp"
+#include <memory>
+#include <vector>
+#include <string>
+module Expression.ExpressionFactory;
+
 
 std::shared_ptr<Expression> ExpressionFactory::createExpression(const Token& token,
                                                                 const std::vector<std::shared_ptr<Expression>>&

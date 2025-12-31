@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
-#include "Expressions.hpp"
-
+import Expressions.all;
 TEST(ExpressionTests, TestNumberEvaluation) {
     Number n(3.14);
     auto   result = n.evaluate();

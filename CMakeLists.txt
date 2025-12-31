@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.28)
 
 project("Quantum Mech Solver")
 
@@ -16,12 +16,31 @@ if (BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
+file(GLOB_RECURSE PARSER_CPP CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+file(GLOB_RECURSE PARSER_MODULES CONFIGURE_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cppm
+)
+
+# Remove main.cpp and interpreter.cpp from the library sources
+list(FILTER PARSER_CPP EXCLUDE REGEX "src/main.cpp$")
+list(FILTER PARSER_CPP EXCLUDE REGEX "src/interpreter.cpp$")
+# Also exclude Expressions subdirectory (should be handled by GLOB_RECURSE not descending if it's already a project, 
+# but GLOB_RECURSE usually goes everywhere. Wait, src/Expressions/src/*.cpp matches src/*.cpp)
+list(FILTER PARSER_CPP EXCLUDE REGEX "src/Expressions/.*")
+list(FILTER PARSER_MODULES EXCLUDE REGEX "src/Expressions/.*")
+
+add_library(parser)
+target_sources(parser
+        PUBLIC FILE_SET parser_modules TYPE CXX_MODULES FILES ${PARSER_MODULES}
+        PRIVATE ${PARSER_CPP}
+)
+target_link_libraries(parser PRIVATE Expressions)
 
 add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE Expressions parser)
-
-add_library(parser src/Parser.cpp)
-target_link_libraries(parser PRIVATE Expressions)
 
 if (BUILD_TESTING)
     add_custom_target(run_tests

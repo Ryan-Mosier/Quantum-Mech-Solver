@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "../Parser.hpp"
-
+import Expressions.all;
+import Parser;
 // Simple tests
 TEST(ParserTests, SimpleAddition) {
     Parser parser("1 + 2;");
@@ -20,7 +20,7 @@ TEST(ParserTests, SimpleAssignment) {
     EXPECT_DOUBLE_EQ(*Environment::getInstance().get("x"), 10.0);
 }
 
-// Complex single line tests
+// Complex single-line tests
 TEST(ParserTests, ComplexSingleLineArithmetic) {
     Parser parser("1 + 2 * 3;");
     auto   expressions = parser.getExpressions();
