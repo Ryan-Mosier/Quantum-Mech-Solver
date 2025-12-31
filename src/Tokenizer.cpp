@@ -100,6 +100,9 @@ void Tokenizer::seperateLines() {
             line = "";
         }
         else if (c == '#') { isComment = true; } // may want to expand this so we can use // for comments
+        else if (c == '\n' || c == '\r' || c == ' ') {
+            //do nothing on whitespace
+        }
         else { line += c; }
     }
 }

@@ -24,11 +24,9 @@ file(GLOB_RECURSE PARSER_MODULES CONFIGURE_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cppm
 )
 
-# Remove main.cpp and interpreter.cpp from the library sources
+# Remove main.cpp from the library sources
 list(FILTER PARSER_CPP EXCLUDE REGEX "src/main.cpp$")
-list(FILTER PARSER_CPP EXCLUDE REGEX "src/interpreter.cpp$")
-# Also exclude Expressions subdirectory (should be handled by GLOB_RECURSE not descending if it's already a project, 
-# but GLOB_RECURSE usually goes everywhere. Wait, src/Expressions/src/*.cpp matches src/*.cpp)
+# Also exclude Expressions subdirectory
 list(FILTER PARSER_CPP EXCLUDE REGEX "src/Expressions/.*")
 list(FILTER PARSER_MODULES EXCLUDE REGEX "src/Expressions/.*")
 
