@@ -1,9 +1,10 @@
 //
 // Created by ryanm on 12/21/2025.
 //
+module;
+#include <memory>
 
-#include "Expressions.hpp"
-#include "strategies/OperatorStrategyFactory.hpp"
+module Expression.CompositeExpressions;
 
 UnaryExpression::UnaryExpression(const std::shared_ptr<Expression>& expression,
                                  const UnaryOpStrategy* strategy, const ExpressionType& type) : Expression(type),

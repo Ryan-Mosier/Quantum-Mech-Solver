@@ -1,12 +1,15 @@
 //
 // Created by ryanm on 12/21/2025.
 //
+module;
 
-#ifndef EXPRESSION_LIBRARY_NUMBER_HPP
-#define EXPRESSION_LIBRARY_NUMBER_HPP
-#include "ExpressionType.hpp"
+#include <memory>
 
-class Number : public Expression {
+export module Expression.Atoms;
+import Expression.Expression;
+import Expression.Environment;
+
+export class Number : public Expression {
     double value;
 
 public:
@@ -17,7 +20,7 @@ public:
     [[nodiscard]] std::string                 toString() const override;
 };
 
-class Identifier : public Expression {
+export class Identifier : public Expression {
     std::string name;
 
 public:
@@ -28,4 +31,3 @@ public:
     [[nodiscard]] const std::string&          getName() const;
 };
 
-#endif //EXPRESSION_LIBRARY_NUMBER_HPP

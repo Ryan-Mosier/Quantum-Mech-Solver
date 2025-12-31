@@ -1,20 +1,21 @@
 //
 // Created by ryanm on 12/21/2025.
 //
-
-#ifndef EXPRESSION_LIBRARY_UNARYOPSTRATEGY_HPP
-#define EXPRESSION_LIBRARY_UNARYOPSTRATEGY_HPP
+module;
 #include <memory>
-#include "ExpressionType.hpp"
 
-class UnaryOpStrategy {
+export module Expression.OpStrategy;
+
+import Expression.Expression;
+
+export class UnaryOpStrategy {
 public:
     virtual                           ~UnaryOpStrategy() = default;
     [[nodiscard]] virtual Value       eval(const std::shared_ptr<Expression>& expression) const = 0;
     [[nodiscard]] virtual std::string toString() const = 0;
 };
 
-class BinaryOpStrategy {
+export class BinaryOpStrategy {
 public:
     virtual                     ~BinaryOpStrategy() = default;
     [[nodiscard]] virtual Value eval(std::shared_ptr<Expression> left,
@@ -22,4 +23,3 @@ public:
     [[nodiscard]] virtual std::string toString() const = 0;
 };
 
-#endif //EXPRESSION_LIBRARY_UNARYOPSTRATEGY_HPP

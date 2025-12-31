@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <string>
-#include "Parser.hpp"
+import Parser;
 
 // This code will contain the main entry point for the program, handle UI (terminal for now) and manage program flow
 int main() {

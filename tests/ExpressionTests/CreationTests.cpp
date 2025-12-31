@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "Expressions.hpp"
+import Expressions.all;
 
 TEST(ExpressionTests, TestNumberCreation) {
     Number number("42");

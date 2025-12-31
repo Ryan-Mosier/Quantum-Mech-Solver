@@ -1,15 +1,15 @@
 //
 // Created by ryanm on 12/21/2025.
 //
+module;
 
-
-#ifndef QUANTUM_MECH_SOLVER_TOKENTYPE_H
-#define QUANTUM_MECH_SOLVER_TOKENTYPE_H
 #include <optional>
+#include <string>
 
-#include "ExpressionType.hpp"
+export module Expression.Token;
 
-enum class TokenType {
+
+export enum class TokenType {
     Null,
     Assignment, // Basic
     Plus, Minus, Star, Slash,
@@ -19,7 +19,7 @@ enum class TokenType {
     EOFToken
 };
 
-inline bool canBeUnary(TokenType type) {
+export inline bool canBeUnary(TokenType type) {
     switch (type) {
         default:
             return false;
@@ -48,7 +48,7 @@ inline bool canBeUnary(TokenType type) {
 
 #define tenth_level_power 10.0f
 
-struct BindingPower {
+export struct BindingPower {
     float left;
     float right;
     BindingPower(const float& p) : left(p), right(p + 0.1f) {}
@@ -57,7 +57,7 @@ struct BindingPower {
 };
 
 //TODO: function to map binding powers
-inline std::optional<float> prefixBP(TokenType type) {
+export inline std::optional<float> prefixBP(TokenType type) {
     // this functionally acts as a bool
     // nullopt is used when the token can't be used as a prefix
     // any other value is used when it can be
@@ -68,7 +68,7 @@ inline std::optional<float> prefixBP(TokenType type) {
     }
 }
 
-inline std::optional<BindingPower> infixBP(TokenType type) {
+export inline std::optional<BindingPower> infixBP(TokenType type) {
     using enum TokenType;
     switch (type) {
         case Plus:
@@ -95,10 +95,10 @@ inline std::optional<BindingPower> infixBP(TokenType type) {
 
 
 // TODO: define functionality for this
-inline std::optional<BindingPower> postfixBP(TokenType type) { return std::nullopt; }
+export inline std::optional<BindingPower> postfixBP(TokenType type) { return std::nullopt; }
 
 
-struct Token {
+export struct Token {
     TokenType   type;
     std::string value; //the string that this token represents
     // size_t is much bigger than we really should need, but it got clang to shut up...
@@ -111,5 +111,3 @@ struct Token {
 
     explicit Token(const TokenType& type) : Token(type, "", 0) {}
 };
-
-#endif //QUANTUM_MECH_SOLVER_TOKENTYPE_H

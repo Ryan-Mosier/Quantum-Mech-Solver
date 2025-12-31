@@ -9,12 +9,13 @@ software abstractions to hardware-level execution.
 
 ## Project Status
 
-The project is currently in the **Phase 2: AST Flattening** stage.
-The goal is to refactor the AST into a cache-friendly layout that ideally can be executed sequentially in a std::vector.
-This will remove many potential issues that arise from the recursive nature of the AST.
-Namely, the stack overflow issue, however, it will also likely greatly improve execution speed for larger trees.
+This is a snapshot of the project at the end of **Phase 1: Parsing & AST**.
+At this point, the project is still in its infancy and has some major limitations.
+The AST is recursive, which can lead to stack overflow issues for large expressions.
+The project is also missing a lot of features, as it only supports a small subset of mathematical operations and does
+not support vectors or matrices.
 
-This can be seen as an intermediate step towards **Phase 3: Sequential Execution**.
+This phase can be properly seen as a proof of concept and serves as a good starting point for future work.
 
 ## Project Vision & Roadmap
 
