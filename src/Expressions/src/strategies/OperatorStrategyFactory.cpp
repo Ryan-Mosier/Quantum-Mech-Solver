@@ -8,13 +8,13 @@ module Expression.Strategies.Factory;
 
 // These provide a static location for the strategies, each instance will actually just reference this.
 //Unary
-static auto neg = new Neg();
+static auto neg = Neg();
 //Binary
-static auto plus     = new Plus();
-static auto minus    = new Minus();
-static auto multiply = new Multiply();
-static auto divide   = new Divide();
-static auto assign   = new Assign();
+static auto plus     = Plus();
+static auto minus    = Minus();
+static auto multiply = Multiply();
+static auto divide   = Divide();
+static auto assign   = Assign();
 
 
 const UnaryOpStrategy* UnaryStrategyFactory::createStrategy(TokenType type) {
@@ -26,12 +26,12 @@ const UnaryOpStrategy* UnaryStrategyFactory::createStrategy(ExpressionType type)
         default:
             throw std::invalid_argument("invalid token type");
         case ExpressionType::Neg:
-            return neg;
+            return &neg;
     }
 }
 
 ExpressionType UnaryStrategyFactory::getType(const UnaryOpStrategy* strategy) {
-    if (strategy == neg) return ExpressionType::Neg;
+    if (strategy == &neg) return ExpressionType::Neg;
     throw std::invalid_argument("invalid strategy");
 }
 
@@ -44,22 +44,22 @@ const BinaryOpStrategy* BinaryStrategyFactory::createStrategy(ExpressionType typ
         default:
             throw std::invalid_argument("invalid expression type");
         case ExpressionType::Plus:
-            return plus;
+            return &plus;
         case ExpressionType::Minus:
-            return minus;
+            return &minus;
         case ExpressionType::Multiply:
-            return multiply;
+            return &multiply;
         case ExpressionType::Divide:
-            return divide;
+            return &divide;
         case ExpressionType::Assignment:
-            return assign;
+            return &assign;
     }
 }
 
 ExpressionType BinaryStrategyFactory::getType(const BinaryOpStrategy* strategy) {
-    if (strategy == plus) return ExpressionType::Plus;
-    if (strategy == minus) return ExpressionType::Minus;
-    if (strategy == multiply) return ExpressionType::Multiply;
-    if (strategy == divide) return ExpressionType::Divide;
+    if (strategy == &plus) return ExpressionType::Plus;
+    if (strategy == &minus) return ExpressionType::Minus;
+    if (strategy == &multiply) return ExpressionType::Multiply;
+    if (strategy == &divide) return ExpressionType::Divide;
     throw std::invalid_argument("invalid strategy");
 }
